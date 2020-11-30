@@ -1,5 +1,6 @@
 package com.example.flighttraker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         //listes d'aéroport
         val airportNameList = ArrayList<String>()
 
+        airportNameList.add("")
         for (airport in viewModel.getAirportListLiveData().value!!) {
             airportNameList.add(airport.getFormattedName())
         }
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         var aeroportDepPresent = false
         var aeroportArrPresent = false
-        var allerRetour = false
+        var depArr = false
 
         if(aeroportDep != "") {
             aeroportDepPresent = true
@@ -77,12 +79,23 @@ class MainActivity : AppCompatActivity() {
             aeroportArrPresent = true
         }
         if(aeroportDepPresent && aeroportArrPresent) {
-            allerRetour = true
+            depArr = true
         }
 
-
-
         //demarer une activité et lui passer les infos
+
+        val intent = Intent(this, FlightActivity::class.java).apply {
+            putExtra("aeroportDep", aeroportDep)
+            putExtra("aeroportArr", aeroportArr)
+            putExtra("dateDebut", dateDebut)
+            putExtra("dateFin", dateFin)
+            putExtra("aeroportDepPresent", aeroportDepPresent)
+            putExtra("aeroportArrPresent", aeroportArrPresent)
+            putExtra("depArr", depArr)
+        }
+
+        startActivity(intent)
+
 
     }
 
