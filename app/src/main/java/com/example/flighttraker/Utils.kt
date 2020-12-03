@@ -40,6 +40,17 @@ class Utils() {
             return jsonElement.asJsonArray
         }
 
+        fun getVilleFromIcao(icao: String) : String {
+            var res : String = ""
+            for (airport in this.getAirportsListJson()) {
+                if(airport.asJsonObject["icao"].asString == icao) {
+                    res = airport.asJsonObject["name"].asString
+                }
+            }
+
+            return res
+        }
+
 
         fun getText(filename: String): String? {
             val f = File(getRootDirectory(), filename)
