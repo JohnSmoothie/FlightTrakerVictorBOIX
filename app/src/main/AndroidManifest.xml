@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flighttraker">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:name=".FlightApplication"
@@ -10,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightTraker">
-        <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.FlightTraker.NoActionBar"></activity>
         <activity
             android:name=".FlightActivity"
             android:label="@string/title_activity_flight"
@@ -25,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
+
 
 </manifest>

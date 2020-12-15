@@ -110,6 +110,21 @@ class Utils() {
             }
         }
 
+        fun getFlightListFromString(arrayAsString: String) : List<FlightModel> {
+            val flightJsonArray = convertStringToJsonArray(arrayAsString)
+            val flightModelList = ArrayList<FlightModel>()
+            for(flightJson in flightJsonArray) {
+                flightModelList.add(Gson().fromJson(flightJson.asJsonObject, FlightModel::class.java))
+            }
+
+            return flightModelList
+        }
+
+        private fun convertStringToJsonArray(arrayAsString: String) : JsonArray {
+            val jsonElement = JsonParser.parseString(arrayAsString)
+            return jsonElement.asJsonArray
+        }
+
         /*
 
         fun _makeJsonAirportLight() {

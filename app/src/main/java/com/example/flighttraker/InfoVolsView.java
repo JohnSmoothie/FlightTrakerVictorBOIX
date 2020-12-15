@@ -1,6 +1,7 @@
 package com.example.flighttraker;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,21 +16,40 @@ public class InfoVolsView extends LinearLayout {
     private TextView idVol;
     private ImageView logoCompanie;
 
-    public InfoVolsView(Context context, String aeropDep, String dateDepart, String aeropArr, String dateArrive) {
+    public InfoVolsView(Context context) {
         super(context);
-        inflate(context, R.layout.flight_info, this);
+        LayoutInflater.from(context).inflate(R.layout.flight_info, this, true);
 
         this.aeroDep = (TextView) findViewById(R.id.aeroDep);
-        this.aeroDep.setText(aeropDep);
+
 
         this.dateDep = (TextView) findViewById(R.id.dateDep);
-        this.dateDep.setText(dateDepart);
+
 
         this.aeroArr = (TextView) findViewById(R.id.aeroArr);
-        this.aeroArr.setText(aeropArr);
+
 
         this.dateArr = (TextView) findViewById(R.id.dateArr);
-        this.dateArr.setText(dateArrive);
+
+
+        this.tmpVol = (TextView) findViewById(R.id.tmpVol);
+
+
+        this.idVol = (TextView) findViewById(R.id.idVol);
+
+
     }
+
+
+    public void afficherInfos(FlightModel flightModel) {
+
+        this.aeroDep.setText(flightModel.getEstDepartureAirport());
+        this.dateDep.setText(flightModel.getFirstSeen());
+        this.aeroArr.setText(flightModel.getEstArrivalAirport());
+        this.dateArr.setText(flightModel.getLastSeen());
+        this.tmpVol.setText(Integer.parseInt(flightModel.getLastSeen()) - Integer.parseInt(flightModel.getFirstSeen()));
+        this.idVol.setText(flightModel.getCallsign());
+    }
+
 
 }

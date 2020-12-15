@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         //listes d'aéroport
         val airportNameList = ArrayList<String>()
 
-        airportNameList.add("")
         for (airport in viewModel.getAirportListLiveData().value!!) {
             airportNameList.add(airport.getFormattedName())
         }
@@ -59,8 +58,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun recherche() {
-        val aeroportDep = viewModel.getAirportListLiveData().value!![findViewById<Spinner>(R.id.autoCompleteTextView6).selectedItemPosition].icao
-        val aeroportArr = viewModel.getAirportListLiveData().value!![findViewById<Spinner>(R.id.autoCompleteTextView5).selectedItemPosition].icao
+        var aeroportDep = viewModel.getAirportListLiveData().value!![findViewById<Spinner>(R.id.autoCompleteTextView6).selectedItemPosition].icao
+        var aeroportArr = viewModel.getAirportListLiveData().value!![findViewById<Spinner>(R.id.autoCompleteTextView5).selectedItemPosition].icao
         //recupere aéroport arrivé et départ
         val dateRange = findViewById<CalendarPickerView>(R.id.calendar_view).selectedDates
         //recuperation des timestamp des dates de début et de fin
@@ -70,16 +69,15 @@ class MainActivity : AppCompatActivity() {
 
         var aeroportDepPresent = false
         var aeroportArrPresent = false
-        var depArr = false
 
-        if(aeroportDep != "") {
+        val ignorerDep : Switch = findViewById<Switch>(R.id.ignorerDep)
+        val ignorerArr : Switch = findViewById<Switch>(R.id.ignorerArr)
+
+        if(!ignorerDep.isChecked) {
             aeroportDepPresent = true
         }
-        if(aeroportArr != "") {
+        if(!ignorerArr.isChecked) {
             aeroportArrPresent = true
-        }
-        if(aeroportDepPresent && aeroportArrPresent) {
-            depArr = true
         }
 
         //demarer une activité et lui passer les infos
@@ -91,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             putExtra("dateFin", dateFin)
             putExtra("aeroportDepPresent", aeroportDepPresent)
             putExtra("aeroportArrPresent", aeroportArrPresent)
-            putExtra("depArr", depArr)
         }
 
         startActivity(intent)
