@@ -28,11 +28,11 @@ class FlightActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_flight)  //me casse les couilles on va utiliser des ListView
+        setContentView(R.layout.activity_flight)
 
         viewModel = ViewModelProvider(this).get(FlightListViewModel::class.java)
 
-        var listView: ScrollView? = findViewById<ScrollView>(R.id.list_view)
+        var listView: LinearLayout? = findViewById<LinearLayout>(R.id.linearLayout1)
 
         val extras: Bundle? = intent.extras
 

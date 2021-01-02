@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.flighttraker.Utils;
 
 public class InfoVolsView extends LinearLayout {
 
@@ -43,11 +44,13 @@ public class InfoVolsView extends LinearLayout {
 
     public void afficherInfos(FlightModel flightModel) {
 
+
+
         this.aeroDep.setText(flightModel.getEstDepartureAirport());
-        this.dateDep.setText(flightModel.getFirstSeen());
+        this.dateDep.setText(Utils.Companion.timestampToString(Long.parseLong(flightModel.getFirstSeen())));
         this.aeroArr.setText(flightModel.getEstArrivalAirport());
-        this.dateArr.setText(flightModel.getLastSeen());
-        this.tmpVol.setText(Integer.parseInt(flightModel.getLastSeen()) - Integer.parseInt(flightModel.getFirstSeen()));
+        this.dateArr.setText(Utils.Companion.timestampToString(Long.parseLong(flightModel.getLastSeen())));
+        //this.tmpVol.setText(flightModel.getLastSeen()) - Integer.parseInt(flightModel.getFirstSeen()));
         this.idVol.setText(flightModel.getCallsign());
     }
 

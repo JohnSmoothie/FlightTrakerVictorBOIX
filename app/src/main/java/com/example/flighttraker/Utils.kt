@@ -9,7 +9,9 @@ import org.apache.commons.io.IOUtils
 import org.json.JSONArray
 import java.io.*
 import java.nio.charset.Charset
-
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -123,6 +125,44 @@ class Utils() {
         private fun convertStringToJsonArray(arrayAsString: String) : JsonArray {
             val jsonElement = JsonParser.parseString(arrayAsString)
             return jsonElement.asJsonArray
+        }
+
+
+        fun getStandardDateFormat(): SimpleDateFormat {
+            val format = "dd/MM/yy"
+            return SimpleDateFormat(format, Locale.US)
+        }
+
+        fun getCompactDateFormat(): SimpleDateFormat {
+            val format = "dd/MM"
+            return SimpleDateFormat(format, Locale.US)
+        }
+
+        fun dateToString(date: Date?): String {
+            return dateToString(date, false)
+        }
+
+        fun dateToString(
+                date: Date?,
+                compactFormat: Boolean
+        ): String {
+            if(date == null)
+                return ""
+            return if (compactFormat) getCompactDateFormat()
+                    .format(date) else getStandardDateFormat()
+                    .format(date)
+        }
+
+        fun timestampToString(time: Long): String? {
+            return timestampToString(time, false)
+        }
+
+        fun timestampToString(
+                time: Long,
+                compactFormat: Boolean
+        ): String? {
+            val date = Date(time)
+            return if (compactFormat) dateToString(date, true) else dateToString(date)
         }
 
         /*
