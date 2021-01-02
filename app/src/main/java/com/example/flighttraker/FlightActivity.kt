@@ -32,7 +32,7 @@ class FlightActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         viewModel = ViewModelProvider(this).get(FlightListViewModel::class.java)
 
-        var listView: ListView? = findViewById<ListView>(R.id.list_view)
+        var listView: ScrollView? = findViewById<ScrollView>(R.id.list_view)
 
         val extras: Bundle? = intent.extras
 
@@ -73,7 +73,7 @@ class FlightActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 for (flightModel in viewModel.flightListLiveData.value!!) {
                     val infoVolsView = InfoVolsView(listView?.context)
                     infoVolsView.afficherInfos(flightModel)
-                    infoVolsView. //faire un maudit adapter custom pour la listView
+                    listView?.addView(infoVolsView)
                 }
 
                 /*
